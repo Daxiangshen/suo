@@ -19,6 +19,7 @@ import java.util.Map;
  **/
 @Service
 public class SuoServiceImpl {
+    //需要引入：apache的httpClient jar包    fastJson  jar包
 
     //本人秘钥
     private static final String KEY="5d4a8f8cb1a9c729e634643d@f676968f024af1a916d93f23aeb5d04d";
