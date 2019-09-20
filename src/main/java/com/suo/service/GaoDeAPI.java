@@ -1,4 +1,5 @@
 package com.suo.service;
+
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
@@ -6,39 +7,36 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 /**
- * <h3>SuoServiceImpl  Class</h3>
+ * <h3>GaoDeAPI  Class</h3>
  *
  * @author : YuXiang
- * @date : 2019-08-07 17:33
+ * @date : 2019-09-20 13:58
  **/
 @Service
-public class SuoServiceImpl {
-    //需要引入：apache的httpClient jar包    fastJson  jar包
+public class GaoDeAPI {
+    private static final String KEY="350305c62bb65fa919b72c963f935398";
 
-    //本人秘钥
-    private static final String KEY="5d4a8f8cb1a9c729e634643d@f676968f024af1a916d93f23aeb5d04d";
-    //api地址
-    private static final String SUO="http://suo.im/api.htm";
+    private static final String URL="https://restapi.amap.com/v3/place/around?parameters";
 
-
-    public String suo(String url){
+    public String gaoDeSou(){
         Map<String, String> param=new HashMap<>();
-        param.put("url",url);
-        param.put("format","json");
         param.put("key",KEY);
+        param.put("location","112.553657,37.802344");
+        param.put("keywords","便利");
+        param.put("output","JSON");
         CloseableHttpClient httpclient = HttpClients.createDefault();
         String resultString="";
         CloseableHttpResponse response = null;
         try {
             // 创建uri
-            URIBuilder builder = new URIBuilder(SUO);
+            URIBuilder builder = new URIBuilder(URL);
             if (param != null) {
                 for (String key : param.keySet()) {
                     builder.addParameter(key, param.get(key));
@@ -67,18 +65,5 @@ public class SuoServiceImpl {
         }
         System.err.println(resultString);
         return resultString;
-    }
-
-    //随机码
-    public static void main(String[] args) {
-        String base = "abcdefghijklmnopqrstuvwxyzQWERTYUIOPASDFGHJKLZXCVBNM0123456789&-#$%*!(){}";
-        Random random = new Random();
-        StringBuffer sb = new StringBuffer();
-
-        for(int i = 0; i < 10; ++i) {
-            int number = random.nextInt(base.length());
-            sb.append(base.charAt(number));
-        }
-        System.err.println(sb.toString());
     }
 }

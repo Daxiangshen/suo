@@ -1,5 +1,6 @@
 package com.suo.controller;
 
+import com.suo.service.GaoDeAPI;
 import com.suo.service.SuoServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,11 +20,19 @@ public class SuoController {
     @Resource
     private SuoServiceImpl suoService;
 
+    @Resource
+    private GaoDeAPI gaoDeAPI;
+
     /**
      * 生成短链接---------
      * */
     @GetMapping("/suo")
     public String suo(String url){
         return suoService.suo(url);
+    }
+
+    @GetMapping("/gaoDe")
+    public String suo(){
+        return gaoDeAPI.gaoDeSou();
     }
 }
